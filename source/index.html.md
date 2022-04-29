@@ -5,9 +5,15 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
 
 toc_footers:
-  - <a href='#'>Get your Cloud API key here</a>
+  - <a href="https://dashboard.kenzap.cloud/access/">Get your Cloud API key here</a>
 
 includes:
+  - authentication
+  - queries
+  - create
+  - find
+  - update
+  - delete
   - errors
 
 search: true
@@ -21,222 +27,45 @@ meta:
 
 # Introduction
 
-Welcome to Kenzap Cloud API. You can use this API to access and manage data of your Cloud Space and installed Extensions.
-
-Extensions are building blocks of Kenzap Cloud allowing you to create progressive web 2.0/3.0 applications for businesses of all sizes. All extensions ar open source. Some examples are available on [Github](https://github.com/topics/kenzap-cloud).
-
-The purpose of Kenzap API is to speed up and simplify development time of complex applications as well as to bring highly performant and consistent user experience. 
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: your_very_long_api_key"
-```
-
 ```javascript
-const kittn = require('kittn');
+fetch("https://api-v1.kenzap.cloud/", {
+  method: "post",
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer your_api_key"
+  },
+  body: JSON.stringify({
+      query: {
+          products: {
+              type:       "find",
+              key:        "ecommerce-product",
+              fields:     ["_id", "img", "status", "price", "title"],
+              limit:      25
+          }
+      }
+  })
+})
+.then(response => response.json())
+.then(response => {
 
-let api = kittn.authorize('your_very_long_api_key');
+  console.log(response)
+
+})
 ```
 
-> Make sure to replace `your_very_long_api_key` with your API key.
+Welcome to Kenzap Cloud API. You can use this API to access and manage thje data of your installed Extensions in the **Kenzap Cloud Space**.
 
+Extensions are building blocks of Kenzap Cloud allowing you to create progressive web applications for businesses of all sizes. All extensions are **open-sourced**. You can explore some extension examples on [Github](https://github.com/topics/kenzap-cloud).
 
-Kenzap Cloud uses API keys to allow access to the API. You can register a new API key under [Kenzap Cloud Access](https://dashboard.kenzap.cloud/access/) dashboard.
+The purpose of Kenzap API is to:
 
-All Kenzap Cloud API requests must contain API key in a header that looks like the following:
+* **speed up** the development time of complex applications
+* bring **highly performant** user experience
+* ensure **consistency** in the ecosystem of Cloud Extensions 
 
-`Authorization: your_api_key`
+The API examples are provided in JavaScript language. The query on the right side demonstrates how to return 25 records of products stored in the Cloud Space of the E-commerce extension.
 
 <aside class="notice">
 You must replace <code>your_api_key</code> with your API key.
 </aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
