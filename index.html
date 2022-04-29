@@ -286,7 +286,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-a4016a40.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-11c848f3.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-67083f3b.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-b12a2749.js"></script>
 
@@ -317,18 +317,73 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#api-key-authorization" class="toc-h2 toc-link" data-title="API Key Authorization">API Key Authorization</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#user-token-authentication" class="toc-h2 toc-link" data-title="User Token Authentication">User Token Authentication</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#api-key-parameters" class="toc-h2 toc-link" data-title="API Key Parameters">API Key Parameters</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#query-structure" class="toc-h1 toc-link" data-title="Query Structure">Query Structure</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#http-request" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
+                  </li>
+                  <li>
+                    <a href="#json-payload" class="toc-h2 toc-link" data-title="JSON Payload">JSON Payload</a>
+                  </li>
+                  <li>
+                    <a href="#query-types" class="toc-h2 toc-link" data-title="Query Types">Query Types</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#create" class="toc-h1 toc-link" data-title="Create">Create</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-parameters" class="toc-h2 toc-link" data-title="Create Parameters">Create Parameters</a>
+                  </li>
+                  <li>
+                    <a href="#create-examples" class="toc-h2 toc-link" data-title="Create Examples">Create Examples</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#find" class="toc-h1 toc-link" data-title="Find">Find</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#find-parameters" class="toc-h2 toc-link" data-title="Find Parameters">Find Parameters</a>
+                  </li>
+                  <li>
+                    <a href="#find-examples" class="toc-h2 toc-link" data-title="Find Examples">Find Examples</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#update" class="toc-h1 toc-link" data-title="Update">Update</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#update-parameters" class="toc-h2 toc-link" data-title="Update Parameters">Update Parameters</a>
+                  </li>
+                  <li>
+                    <a href="#update-examples" class="toc-h2 toc-link" data-title="Update Examples">Update Examples</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#delete" class="toc-h1 toc-link" data-title="Delete">Delete</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#delete-parameters" class="toc-h2 toc-link" data-title="Delete Parameters">Delete Parameters</a>
+                  </li>
+                  <li>
+                    <a href="#delete-examples" class="toc-h2 toc-link" data-title="Delete Examples">Delete Examples</a>
                   </li>
               </ul>
           </li>
@@ -337,197 +392,991 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Get your Cloud API key here</a></li>
+            <li><a href="https://dashboard.kenzap.cloud/access/">Get your Cloud API key here</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to Kenzap Cloud API. You can use this API to access and manage data of your Cloud Space and installed Extensions.</p>
+        <h1 id='introduction'>Introduction</h1><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">products</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>       <span class="dl">"</span><span class="s2">find</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>        <span class="dl">"</span><span class="s2">ecommerce-product</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">fields</span><span class="p">:</span>     <span class="p">[</span><span class="dl">"</span><span class="s2">_id</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">img</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">],</span>
+              <span class="na">limit</span><span class="p">:</span>      <span class="mi">25</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
 
-<p>Extensions are building blocks of Kenzap Cloud allowing you to create progressive web 2.0/3.0 applications for businesses of all sizes. All extensions ar open source. Some examples are available on <a href="https://github.com/topics/kenzap-cloud">Github</a>.</p>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
 
-<p>The purpose of Kenzap API is to speed up and simplify development time of complex applications as well as to bring highly performant and consistent user experience. </p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: your_very_long_api_key"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">your_very_long_api_key</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">})</span>
 </code></pre></div>
-<blockquote>
-<p>Make sure to replace <code>your_very_long_api_key</code> with your API key.</p>
-</blockquote>
+<p>Welcome to Kenzap Cloud API. You can use this API to access and manage thje data of your installed Extensions in the <strong>Kenzap Cloud Space</strong>.</p>
 
-<p>Kenzap Cloud uses API keys to allow access to the API. You can register a new API key under <a href="https://dashboard.kenzap.cloud/access/">Kenzap Cloud Access</a> dashboard.</p>
+<p>Extensions are building blocks of Kenzap Cloud allowing you to create progressive web applications for businesses of all sizes. All extensions are <strong>open-sourced</strong>. You can explore some extension examples on <a href="https://github.com/topics/kenzap-cloud">Github</a>.</p>
 
-<p>All Kenzap Cloud API requests must contain API key in a header that looks like the following:</p>
+<p>The purpose of Kenzap API is to:</p>
 
-<p><code>Authorization: your_api_key</code></p>
+<ul>
+<li><strong>speed up</strong> the development time of complex applications</li>
+<li>bring <strong>highly performant</strong> user experience</li>
+<li>ensure <strong>consistency</strong> in the ecosystem of Cloud Extensions </li>
+</ul>
+
+<p>The API examples are provided in JavaScript language. The query on the right side demonstrates how to return 25 records of products stored in the Cloud Space of the E-commerce extension.</p>
 
 <aside class="notice">
 You must replace <code>your_api_key</code> with your API key.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='authentication'>Authentication</h1>
+<p>There are two types of authorization methods:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
+<ul>
+<li>API key authorization</li>
+<li>User token authentication</li>
+</ul>
+<h2 id='api-key-authorization'>API Key Authorization</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept': 'application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type': 'application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization': 'Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">})</span>
 </code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
+<p>API key authorization is designed for <strong>backend</strong> communication between servers. This type of method should not be used in frontend production sites.</p>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>All Kenzap Cloud API requests must contain an API key in a header that looks like the following:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p><code>Authorization: Bearer your_api_key</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
+<p>You can register a new API key under the <a href="https://dashboard.kenzap.cloud/access/">Kenzap Cloud Access</a> dashboard.</p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+You must replace <code>your_api_key</code> with your API key.
+</aside>
+<h2 id='user-token-authentication'>User Token Authentication</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Kenzap-Token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">kenzap_user_token</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>User token authorization is designed for applications that need to manipulate data from the <strong>frontend</strong>. For example, a user places an order to the E-commerce extension.</p>
+
+<p>All Kenzap Cloud API requests must contain <strong>API key</strong> and Kenzap <strong>user token</strong> in a header that looks like the following:</p>
+
+<p><code>Authorization: Bearer your_api_key</code></p>
+
+<p><code>Kenzap-Token: kenzap_user_token</code></p>
+
+<p>You can register a new API key under the <a href="https://dashboard.kenzap.cloud/access/">Kenzap Cloud Access</a> dashboard. You can retrieve kenzap_user_token from kenzap_token cookie when the user is authorized to the Kenzap Cloud.</p>
+
+<aside class="notice">
+You must replace <code>your_api_key</code> with your API key and <code>kenzap_token</code> with real user token.
+</aside>
+<h2 id='api-key-parameters'>API Key Parameters</h2>
+<ul>
+<li>Access type
+
+<ul>
+<li><strong>Frontend</strong> - frontend queries (requires <a href="#user-token-authentication">kenzap_user_token</a>).</li>
+<li><strong>Backend</strong> - server side communication.</li>
+</ul></li>
+<li>Permissions
+
+<ul>
+<li><strong>Read only</strong> - allow read queries only.</li>
+<li><strong>Read &amp; write</strong> - allow read and write queries.</li>
+</ul></li>
+<li>Isolated
+
+<ul>
+<li><strong>Yes</strong> - access data generated by the same API key or user.</li>
+<li><strong>No</strong> - access any data including data with the isolated parameter set to &quot;Yes&quot;.</li>
+</ul></li>
+</ul>
+
+<aside class="warning">
+Never use <code>backend</code> API keys with <code>read &amp; write</code> permissions in the frontend production sites.
+</aside>
+<h1 id='query-structure'>Query Structure</h1>
+<p>By default all queries are sent as JSON paylod in the POST request body.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://api-v1.kenzap.cloud/</code></p>
+<h3 id='json-payload'>JSON Payload</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"records"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w">       </span><span class="err">query_type</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>
+query: {
+    records: {
+        type:       query_type
+    }
+}
+</code></p>
+<h3 id='query-types'>Query Types</h3>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#find">find</a></td>
+<td>Find for one or multiple records.</td>
+</tr>
+<tr>
+<td>create</td>
+<td>Insert new record to the Cloud Space.</td>
+</tr>
+<tr>
+<td>update</td>
+<td>Find record by provided _id and update it.</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>Find record by provided _id and delete it.</td>
+</tr>
+<tr>
+<td>set</td>
+<td>Find record by provided reference key and update it.</td>
+</tr>
+<tr>
+<td>get</td>
+<td>Find record by provided reference key.</td>
+</tr>
+<tr>
+<td>webhook</td>
+<td>Make API call after query is processed.</td>
+</tr>
+<tr>
+<td>authenticate</td>
+<td>Authenticate user with the help of <a href="#user-token-authentication">kenzap_user_token</a>.</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>Retrieve translation data.</td>
+</tr>
+<tr>
+<td>api-key</td>
+<td>Retrieve available API keys.</td>
+</tr>
+</tbody></table>
+<h1 id='create'>Create</h1>
+<p>This type of query creates new Kenzap Cloud record and returns 40 character generated ID string.</p>
+<h2 id='create-parameters'>Create Parameters</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"record"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w">       </span><span class="s2">"create"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"key"</span><span class="p">:</span><span class="w">        </span><span class="err">key</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"data"</span><span class="p">:</span><span class="w">       </span><span class="err">data</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The table below demonstrates various parameters that you can use to customize your <code>find</code> query.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data&nbsp;Types</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td><code>String</code></td>
+<td><code>create</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#create-key">key</a></td>
+<td><code>String</code></td>
+<td><code>ecommerce-product</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#create-data">data</a></td>
+<td><code>Object</code></td>
+<td><code>{ &quot;title&quot;: title, &quot;price&quot;: price }</code></td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id='create-key'>Create key</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecommerce-product"</span><span class="w">
+</span></code></pre></div>
+<p>This parameter specifies which extension data to query within the Cloud Space. Key names are <strong>arbitrary</strong>, meaning that each extension is having its own set of available keys. Think of keys as tables in the context of relational databases.</p>
+
+<p>For example, E-commerce extension keys:</p>
+
+<ul>
+<li><code>ecommerce-product</code></li>
+<li><code>ecommerce-settings</code></li>
+<li><code>ecommerce-order</code></li>
+</ul>
+
+<p>MyTicket extension keys:</p>
+
+<ul>
+<li><code>myticket-settings</code></li>
+<li><code>myticket-layouts</code><br></li>
+</ul>
+<h3 id='create-data'>Create data</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w">        </span><span class="err">title</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w">  </span><span class="err">description</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"status"</span><span class="p">:</span><span class="w">       </span><span class="err">status.</span><span class="w">
+          </span><span class="nl">"img"</span><span class="p">:</span><span class="w">          </span><span class="p">[],</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w">        </span><span class="err">price</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Kenzap Cloud does not follow strict schema, meaning that any extension can define its own data structure and columns.</p>
+
+<p>This parameter contains all payload data that you want to permanently store in the Kenzap Cloud.</p>
+<h2 id='create-examples'>Create Examples</h2><h3 id='create-new-product'>Create new product</h3>
+<blockquote>
+<p>Create new product:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">product</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>   <span class="dl">"</span><span class="s2">create</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>    <span class="dl">"</span><span class="s2">ecommerce-product</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">data</span><span class="p">:</span>   <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span>        <span class="dl">"</span><span class="s2">California Sushi</span><span class="dl">"</span><span class="p">,</span>
+                                <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span>  <span class="dl">"</span><span class="s2">A set of 6 pieces, comes with free ocha.</span><span class="dl">"</span><span class="p">,</span>
+                                <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">:</span>       <span class="dl">"</span><span class="s2">published</span><span class="dl">"</span><span class="p">.</span>
+                                <span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span>        <span class="dl">"</span><span class="s2">24.50</span><span class="dl">"</span>
+                              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+
+<span class="p">})</span>
+</code></pre></div>
+<p>Insert new E-commerce product with the following values:</p>
+
+<ul>
+<li><code>California Sushi</code> for title.</li>
+<li><code>A set of 6 pieces, comes with free ocha</code> for description.</li>
+<li><code>published</code> for status.</li>
+<li><code>24.50</code> for price.</li>
+</ul>
+<h1 id='find'>Find</h1>
+<p>This type of query performs a search operation in the Cloud. It may return one or multiple records.</p>
+<h2 id='find-parameters'>Find Parameters</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"records"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w">       </span><span class="s2">"find"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"key"</span><span class="p">:</span><span class="w">        </span><span class="err">key</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w">         </span><span class="err">id</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fields"</span><span class="p">:</span><span class="w">     </span><span class="err">fields</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"term"</span><span class="p">:</span><span class="w">       </span><span class="p">[</span><span class="w">
+                        </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="err">field</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"relation"</span><span class="p">:</span><span class="w"> </span><span class="err">relation</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="err">type</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="err">value</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                      </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"search"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w">         
+                        </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="err">field</span><span class="p">,</span><span class="w">
+                        </span><span class="nl">"s"</span><span class="p">:</span><span class="w"> </span><span class="err">s</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"sortby"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="err">field</span><span class="p">,</span><span class="w">
+                        </span><span class="nl">"order"</span><span class="p">:</span><span class="w"> </span><span class="err">order</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"groupby"</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w">
+                        </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="err">field</span><span class="p">,</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"count"</span><span class="p">:</span><span class="w">    </span><span class="err">count</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"sum"</span><span class="p">:</span><span class="w">      </span><span class="err">sum</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"limit"</span><span class="p">:</span><span class="w">    </span><span class="err">limit</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"offset"</span><span class="p">:</span><span class="w">   </span><span class="err">offset</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The table below demonstrates various parameters that you can use to customize your <code>find</code> query.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data&nbsp;Types</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td><code>String</code></td>
+<td><code>find</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#find-key">key</a></td>
+<td><code>String</code></td>
+<td><code>ecommerce-product</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#find-fields">fields</a></td>
+<td><code>String</code>&nbsp;<code>Array</code></td>
+<td><code>[&quot;_id&quot;, &quot;title&quot;, &quot;created&quot;]</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#find-id">id</a></td>
+<td><code>String</code></td>
+<td><code>00232c6e9024c0d8d064af7754e1c60580fe4407</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-term">term</a></td>
+<td><code>Array</code>&nbsp;<code>Object</code></td>
+<td><code>[{&quot;field&quot;: &quot;created&quot;, &quot;relation&quot;: &quot;&gt;=&quot;, &quot;type&quot;: &quot;numeric&quot;, &quot;value&quot;: 1651198732}]</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-count">count</a></td>
+<td><code>Array</code></td>
+<td><code>[&quot;_id&quot;]</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-sum">sum</a></td>
+<td><code>Array</code></td>
+<td><code>[&quot;total&quot;, &quot;total_tax&quot;]</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-search">search</a></td>
+<td><code>Object</code></td>
+<td><code>{ field: &quot;title&quot;, s: &quot;sushi&quot; }</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-sortby">sortby</a></td>
+<td><code>Array</code>&nbsp;<code>Object</code></td>
+<td><code>{ field: &quot;created&quot;, order: &quot;DESC&quot; }</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-groupby">groupby</a></td>
+<td><code>Array</code>&nbsp;<code>Object</code></td>
+<td><code>[ { field: &quot;category&quot; } ]</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-limit">limit</a></td>
+<td><code>Number</code></td>
+<td><code>25</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#find-offset">offset</a></td>
+<td><code>Number</code></td>
+<td><code>10</code></td>
+<td>No</td>
+</tr>
+</tbody></table>
+<h3 id='find-key'>Find key</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecommerce-product"</span><span class="w">
+</span></code></pre></div>
+<p>This parameter specifies which extension data to query within the Cloud Space. Key names are <strong>arbitrary</strong>, meaning that each extension has its own set of available keys. Think of keys as tables in the context of relational databases.</p>
+
+<p>For example, E-commerce extension keys:</p>
+
+<ul>
+<li><code>ecommerce-product</code></li>
+<li><code>ecommerce-settings</code></li>
+<li><code>ecommerce-order</code></li>
+</ul>
+
+<p>MyTicket extension keys:</p>
+
+<ul>
+<li><code>myticket-settings</code></li>
+<li><code>myticket-layouts</code><br></li>
+</ul>
+<h3 id='find-fields'>Find fields</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> 
+            </span><span class="s2">"_id"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"title"</span><span class="p">,</span><span class="w"> 
+            </span><span class="s2">"created"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>Kenzap Cloud does not follow a strict schema, meaning that any extension can define its data structure and columns. Some fields parameter examples:</p>
+
+<ul>
+<li><code>&quot;*&quot;</code> - query all fields</li>
+<li><code>[&quot;_id&quot;, &quot;title&quot;, &quot;created&quot;]</code> - query system _id, title and created fields only<br></li>
+</ul>
+<h3 id='find-id'>Find id</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e3de841f54b88997f2e18cfd60dd06ebb956db22"</span><span class="w">
+</span></code></pre></div>
+<p>You can query individual record by its unique ID. IDs are generated by the Cloud when data record is first inserted into the database. ID example:</p>
+
+<p><code>e3de841f54b88997f2e18cfd60dd06ebb956db22</code></p>
+<h3 id='find-term'>Find term</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> 
+          </span><span class="p">{</span><span class="w"> 
+            </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&gt;="</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1640093421</span><span class="w"> 
+          </span><span class="p">},</span><span class="w"> 
+          </span><span class="p">{</span><span class="w"> 
+            </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="w"> 
+          </span><span class="p">}</span><span class="w"> 
+        </span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>You can add one or multiple terms to your queries by providing additional instructions on which fields to query and specify query relation. Examples:</p>
+
+<ul>
+<li><code>{ &quot;field&quot;: &quot;status&quot;, &quot;relation&quot;: &quot;=&quot;, &quot;value&quot;: &quot;completed&quot; }</code> - return records where status fields equals to &quot;completed&quot;.</li>
+<li>Refer to the right pane for a more complex query term example.<br></li>
+</ul>
+
+<p>Available term relations:</p>
+
+<ul>
+<li><code>&gt;</code> - greater than</li>
+<li><code>&lt;</code> - less than</li>
+<li><code>&gt;=</code> - greater than or equals</li>
+<li><code>&lt;=</code> - less than or equals</li>
+<li><code>=</code> - equals</li>
+</ul>
+
+<p>Available term types:</p>
+
+<ul>
+<li><code>string</code> - consider provided value as string</li>
+<li><code>numeric</code> - consider provided value as numeri</li>
+</ul>
+<h3 id='find-search'>Find search</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"search"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"title"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"s"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sushi"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can perform a case insensitive search within all records of the specified field.</p>
+
+<p><code>
+&quot;search&quot;: {
+          &quot;field&quot;: &quot;title&quot;,
+          &quot;s&quot;: &quot;sushi&quot;
+        } 
+</code></p>
+<h3 id='find-sortby'>Find sortby</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"sortby"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DESC"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can sort orders by a specified field. Refer to the right pane for <code>sortby</code> example.    </p>
+
+<p>Available sortby orders:</p>
+
+<ul>
+<li><code>DESC</code> - sort in descending order</li>
+<li><code>ASC</code> - sort in ascending order</li>
+</ul>
+<h3 id='find-groupby'>Find groupby</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"groupby"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"category"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>You can aggregate records by a specified field. For example, this operation might be useful, if you want to count the total amount of sold products but want to split these records into multiple categories.</p>
+
+<ul>
+<li><code>
+groupby: [
+        {
+          field: &quot;category&quot;
+        }
+      ]
+</code></li>
+</ul>
+<h3 id='find-limit'>Find limit</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="w">
+</span></code></pre></div>
+<p>Limit set the maximum number of queried records to return. If value is not provided it equals to 10 records per query. By providing value that is grater than 10 limit increases total number of returned records.</p>
+
+<p><code>
+limit: 10
+</code></p>
+<h3 id='find-offset'>Find offset</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span></code></pre></div>
+<p>Indicates how many records to skip from the beginning of the query response. By default, this value equals 0.</p>
+
+<p><code>
+offset: 10
+</code></p>
+<h2 id='find-examples'>Find Examples</h2><h3 id='find-first-25-products'>Find First 25 Products</h3>
+<blockquote>
+<p>Find First 25 Products:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">products</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>       <span class="dl">"</span><span class="s2">find</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>        <span class="dl">"</span><span class="s2">ecommerce-product</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">fields</span><span class="p">:</span>     <span class="p">[</span><span class="dl">"</span><span class="s2">_id</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">img</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">],</span>
+              <span class="na">limit</span><span class="p">:</span>      <span class="mi">25</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="nx">response</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">product</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">product</span><span class="p">);</span>
+
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The following example demonstrates how to query the first 25 records stored under the ecommerce-product key.</p>
+
+<p>Query fields:</p>
+
+<ul>
+<li><code>_id</code> - cloud assigned record ID. </li>
+<li><code>img</code> - list of available product images</li>
+<li><code>status</code> - product status</li>
+<li><code>price</code> - product price</li>
+<li><code>title</code> - product title</li>
+</ul>
+<h3 id='search-for-quot-sushi-quot-products'>Search for &quot;Sushi&quot; Products</h3>
+<blockquote>
+<p>Search for &quot;Sushi&quot; Products:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">products</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>       <span class="dl">'</span><span class="s1">find</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>        <span class="dl">'</span><span class="s1">ecommerce-product</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">fields</span><span class="p">:</span>     <span class="p">[</span><span class="dl">'</span><span class="s1">_id</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">img</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">status</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">price</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">updated</span><span class="dl">'</span><span class="p">],</span>
+              <span class="na">search</span><span class="p">:</span>     <span class="p">{</span>   
+                              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">,</span>
+                              <span class="na">s</span><span class="p">:</span> <span class="dl">"</span><span class="s2">sushi</span><span class="dl">"</span>
+                          <span class="p">},</span>
+              <span class="na">sortby</span><span class="p">:</span>     <span class="p">{</span>
+                              <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">,</span>
+                              <span class="na">order</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DESC</span><span class="dl">'</span>
+                          <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="nx">response</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">product</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">product</span><span class="p">);</span>
+
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The following example demonstrates how to query the first 25 records stored under the ecommerce-product key.</p>
+
+<p>Query fields:</p>
+
+<ul>
+<li><code>_id</code> - cloud assigned record ID. </li>
+<li><code>img</code> - list of available product images</li>
+<li><code>status</code> - product status</li>
+<li><code>price</code> - product price</li>
+<li><code>title</code> - product title</li>
+</ul>
+<h3 id='generate-analytics-report'>Generate Analytics Report</h3>
+<blockquote>
+<p>Generate Last 30 days Analytics Report:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">let</span> <span class="nx">today</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">2023-05-01T00:00:00.001Z</span><span class="dl">"</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">by_country</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>       <span class="dl">'</span><span class="s1">find</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>        <span class="dl">'</span><span class="s1">analytics</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">fields</span><span class="p">:</span>     <span class="p">[</span><span class="dl">'</span><span class="s1">cc</span><span class="dl">'</span><span class="p">],</span>
+              <span class="na">count</span><span class="p">:</span>      <span class="p">[</span><span class="dl">'</span><span class="s1">cc</span><span class="dl">'</span><span class="p">],</span>
+              <span class="na">term</span><span class="p">:{</span>
+                  <span class="na">field</span><span class="p">:</span>  <span class="dl">'</span><span class="s1">created</span><span class="dl">'</span><span class="p">,</span>
+                  <span class="na">relation</span><span class="p">:</span><span class="dl">'</span><span class="s1">&gt;</span><span class="dl">'</span><span class="p">,</span>
+                  <span class="na">type</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">numeric</span><span class="dl">'</span><span class="p">,</span>
+                  <span class="na">value</span><span class="p">:</span>  <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">today</span><span class="p">)</span>  <span class="o">/</span> <span class="mi">1000</span> <span class="o">|</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span>
+              <span class="p">},</span>
+              <span class="na">groupby</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                      <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">cc</span><span class="dl">'</span>
+                  <span class="p">}</span>
+              <span class="p">],</span>
+              <span class="na">sortby</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">cc_count</span><span class="dl">'</span><span class="p">,</span>
+                  <span class="na">order</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DESC</span><span class="dl">'</span>
+              <span class="p">},</span>
+              <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="na">limit</span><span class="p">:</span>  <span class="mi">300</span>
+          <span class="p">},</span>
+          <span class="na">by_sessions</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>       <span class="dl">'</span><span class="s1">find</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>        <span class="dl">'</span><span class="s1">analytics</span><span class="dl">'</span><span class="p">,</span>
+              <span class="na">fields</span><span class="p">:</span>     <span class="p">[</span><span class="dl">'</span><span class="s1">ymd</span><span class="dl">'</span><span class="p">],</span>
+              <span class="na">count</span><span class="p">:</span>      <span class="p">[</span><span class="dl">'</span><span class="s1">ymd</span><span class="dl">'</span><span class="p">],</span>
+              <span class="na">term</span><span class="p">:[</span>
+                  <span class="p">{</span>
+                      <span class="na">field</span><span class="p">:</span>  <span class="dl">'</span><span class="s1">created</span><span class="dl">'</span><span class="p">,</span>
+                      <span class="na">relation</span><span class="p">:</span><span class="dl">'</span><span class="s1">&gt;</span><span class="dl">'</span><span class="p">,</span>
+                      <span class="na">type</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">numeric</span><span class="dl">'</span><span class="p">,</span>
+                      <span class="na">value</span><span class="p">:</span>  <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">today</span><span class="p">)</span>  <span class="o">/</span> <span class="mi">1000</span> <span class="o">|</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span>
+                  <span class="p">},</span>
+                  <span class="p">{</span>
+                      <span class="na">field</span><span class="p">:</span>  <span class="dl">'</span><span class="s1">tag</span><span class="dl">'</span><span class="p">,</span>
+                      <span class="na">relation</span><span class="p">:</span><span class="dl">'</span><span class="s1">=</span><span class="dl">'</span><span class="p">,</span>
+                      <span class="na">type</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">string</span><span class="dl">'</span><span class="p">,</span>
+                      <span class="na">value</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">session:5s</span><span class="dl">'</span>
+                  <span class="p">},</span>
+              <span class="p">],</span>
+              <span class="na">groupby</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                      <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ymd</span><span class="dl">'</span>
+                  <span class="p">}</span>
+              <span class="p">],</span>
+              <span class="na">sortby</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ymd_count</span><span class="dl">'</span><span class="p">,</span>
+                  <span class="na">order</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DESC</span><span class="dl">'</span>
+              <span class="p">},</span>
+              <span class="na">offset</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="na">limit</span><span class="p">:</span>  <span class="mi">31</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="nx">response</span><span class="p">.</span><span class="nx">by_country</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">country</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">country</span><span class="p">);</span>
+
+  <span class="p">})</span>
+
+  <span class="nx">response</span><span class="p">.</span><span class="nx">by_sessions</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">session</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">session</span><span class="p">);</span>
+
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The following example demonstrates how to generate an analytics report that can be used, for example, in Google Charts API. 
+Query fields:</p>
+
+<ul>
+<li><code>_id</code> - cloud assigned record ID. </li>
+<li><code>img</code> - list of available product images</li>
+<li><code>status</code> - product status</li>
+<li><code>price</code> - product price</li>
+<li><code>title</code> - product title</li>
+</ul>
+
+<aside class="notice">
+You can specify multiple query requests to better facilitate the logics of your application
+</aside>
+<h1 id='update'>Update</h1>
+<p>This type of query updates exiting record stored in the Kenzap Cloud. It is mandatory to provide a 40-character record ID.</p>
+<h2 id='update-parameters'>Update Parameters</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"record"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w">       </span><span class="s2">"update"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"key"</span><span class="p">:</span><span class="w">        </span><span class="err">key</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w">         </span><span class="err">id</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"data"</span><span class="p">:</span><span class="w">       </span><span class="err">data</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The table below demonstrates various parameters that you can use to customize your <code>find</code> query.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data&nbsp;Types</th>
+<th>Example</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td><code>String</code></td>
+<td><code>update</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#update-key">key</a></td>
+<td><code>String</code></td>
+<td><code>ecommerce-product</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#update-id">id</a></td>
+<td><code>String</code></td>
+<td><code>00232c6e9024c0d8d064af7754e1c60580fe4407</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#update-data">data</a></td>
+<td><code>Object</code></td>
+<td><code>{ &quot;title&quot;: title, &quot;price&quot;: price }</code></td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id='update-key'>Update key</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecommerce-product"</span><span class="w">
+</span></code></pre></div>
+<p>This parameter specifies which extension data to query within the Cloud Space. Key names are <strong>arbitrary</strong>, meaning that each extension is having its own set of available keys. Think of keys as tables in the context of relational databases.</p>
+
+<p>For example, E-commerce extension keys:</p>
+
+<ul>
+<li><code>ecommerce-product</code></li>
+<li><code>ecommerce-settings</code></li>
+<li><code>ecommerce-order</code></li>
+</ul>
+
+<p>MyTicket extension keys:</p>
+
+<ul>
+<li><code>myticket-settings</code></li>
+<li><code>myticket-layouts</code><br></li>
+</ul>
+<h3 id='update-id'>Update id</h3>
+<p>Unique Kenzap Cloud record ID. It is generated when the record is first created in the Cloud. </p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00232c6e9024c0d8d064af7754e1c60580fe4407"</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+You can get record ID by specifying "_id" in the fields array of the find query.
+</aside>
+<h3 id='update-data'>Update data</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w">        </span><span class="err">title</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w">  </span><span class="err">description</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"status"</span><span class="p">:</span><span class="w">       </span><span class="err">status.</span><span class="w">
+          </span><span class="nl">"img"</span><span class="p">:</span><span class="w">          </span><span class="p">[],</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w">        </span><span class="err">price</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Kenzap Cloud does not follow strict schema, meaning that any extension can define its own data structure and columns.</p>
+
+<p>This parameter contains all payload data that you want to permanently store in the Kenzap Cloud.</p>
+
+<p>Existing fields are mapped with the provided schema and are updated with the new value.</p>
+
+<aside class="notice">
+If the value for the specified field is not present a new key value is created instead.
+</aside>
+<h2 id='update-examples'>Update Examples</h2><h3 id='update-existing-product'>Update existing product</h3>
+<blockquote>
+<p>Update existing product:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">product</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>   <span class="dl">"</span><span class="s2">create</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>    <span class="dl">"</span><span class="s2">ecommerce-product</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">id</span><span class="p">:</span>     <span class="dl">"</span><span class="s2">00232c6e9024c0d8d064af7754e1c60580fe4407</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">data</span><span class="p">:</span>   <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span>        <span class="dl">"</span><span class="s2">Okinawa Sushi</span><span class="dl">"</span><span class="p">,</span>
+                                <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span>  <span class="dl">"</span><span class="s2">A set of 7 pieces, comes with free ocha.</span><span class="dl">"</span><span class="p">,</span>
+                                <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">:</span>       <span class="dl">"</span><span class="s2">published</span><span class="dl">"</span><span class="p">.</span>
+                                <span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span>        <span class="dl">"</span><span class="s2">25.40</span><span class="dl">"</span>
+                              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+
+<span class="p">})</span>
+</code></pre></div>
+<p>Updates existing E-commerce product with the following values:</p>
+
+<ul>
+<li><code>Okinawa Sushi</code> for title.</li>
+<li><code>A set of 7 pieces, comes with free ocha</code> for description.</li>
+<li><code>published</code> for status.</li>
+<li><code>25.40</code> for price.</li>
+</ul>
+<h1 id='delete'>Delete</h1>
+<p>This type of query permanently deletes Kenzap Cloud stored record. It is mandatory to provide a 40-character record ID.</p>
+<h2 id='delete-parameters'>Delete Parameters</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"record"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w">       </span><span class="s2">"delete"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"key"</span><span class="p">:</span><span class="w">        </span><span class="err">key</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w">         </span><span class="err">id</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The table below demonstrates various parameters that you can use to customize your <code>find</code> query.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data Types</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td><code>String</code></td>
+<td><code>find</code></td>
+</tr>
+<tr>
+<td><a href="#delete-key">key</a></td>
+<td><code>String</code></td>
+<td><code>ecommerce-product</code></td>
+</tr>
+<tr>
+<td><a href="#delete-id">id</a></td>
+<td><code>String</code></td>
+<td><code>00232c6e9024c0d8d064af7754e1c60580fe4407</code></td>
+</tr>
+</tbody></table>
+<h3 id='delete-key'>Delete key</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecommerce-product"</span><span class="w">
+</span></code></pre></div>
+<p>This parameter specifies which extension data to query within the Cloud Space. Key names are <strong>arbitrary</strong>, meaning that each extension, has its own set of available keys. Think of keys as tables in the context of relational databases.</p>
+
+<p>For example, E-commerce extension keys:</p>
+
+<ul>
+<li><code>ecommerce-product</code></li>
+<li><code>ecommerce-settings</code></li>
+<li><code>ecommerce-order</code></li>
+</ul>
+
+<p>MyTicket extension keys:</p>
+
+<ul>
+<li><code>myticket-settings</code></li>
+<li><code>myticket-layouts</code><br></li>
+</ul>
+<h3 id='delete-id'>Delete id</h3><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e3de841f54b88997f2e18cfd60dd06ebb956db22"</span><span class="w">
+</span></code></pre></div>
+<p>You can query individual records by their unique ID. IDs are generated by the Cloud when a data record is first inserted into the database. ID example:</p>
+
+<p><code>e3de841f54b88997f2e18cfd60dd06ebb956db22</code></p>
+<h2 id='delete-examples'>Delete Examples</h2><h3 id='delete-existing-product'>Delete existing product</h3>
+<p>The example in the right pane demonstrates how to permanently remove a product from the Kenzap Cloud.</p>
+
+<blockquote>
+<p>Delete existing product:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api-v1.kenzap.cloud/</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bearer your_api_key</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="na">query</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">product</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">type</span><span class="p">:</span>   <span class="dl">"</span><span class="s2">delete</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">key</span><span class="p">:</span>    <span class="dl">"</span><span class="s2">ecommerce-product</span><span class="dl">"</span><span class="p">,</span>
+              <span class="na">id</span><span class="p">:</span>     <span class="dl">"</span><span class="s2">00232c6e9024c0d8d064af7754e1c60580fe4407</span><span class="dl">"</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+
+<span class="p">})</span>
+</code></pre></div><h1 id='errors'>Errors</h1>
+<aside class="notice">
+Along with the error code status, the Kenzap Cloud API provides additional notes when the query is not successful. Most popular error reference can be found in the table below.
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>The Kenzap API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -537,39 +1386,27 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- For example, query parameter is not specified.</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>Unauthorized -- Your user token is wrong or expired .</td>
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- No rights to access the resource.</td>
 </tr>
 <tr>
 <td>404</td>
 <td>Not Found -- The specified kitten could not be found.</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>411</td>
+<td>Restricted --  Not enough permissions to access this data.</td>
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests -- Too many API calls.</td>
 </tr>
 <tr>
 <td>500</td>
