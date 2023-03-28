@@ -10,7 +10,7 @@ The Kenzap API uses the following error codes:
 Error Code | Meaning
 ---------- | -------
 400 | Bad Request -- For example, query parameter is not specified.
-401 | Unauthorized -- Your user token is wrong or expired .
+401 | Unauthorized -- Your user token is wrong or expired.
 403 | Forbidden -- No rights to access the resource.
 404 | Not Found -- The specified kitten could not be found.
 411 | Restricted --  Not enough permissions to access this data.

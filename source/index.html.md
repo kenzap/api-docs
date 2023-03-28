@@ -54,7 +54,7 @@ fetch("https://api-v1.kenzap.cloud/", {
 })
 ```
 
-Welcome to Kenzap Cloud API. You can use this API to access and manage thje data of your installed Extensions in the **Kenzap Cloud Space**.
+Welcome to Kenzap Cloud API. You can use this API to access and manage the data of your installed Extensions in the **Kenzap Cloud Space**.
 
 Extensions are building blocks of Kenzap Cloud allowing you to create progressive web applications for businesses of all sizes. All extensions are **open-sourced**. You can explore some extension examples on [Github](https://github.com/topics/kenzap-cloud).
 
@@ -64,7 +64,7 @@ The purpose of Kenzap API is to:
 * bring **highly performant** user experience
 * ensure **consistency** in the ecosystem of Cloud Extensions 
 
-The API examples are provided in JavaScript language. The query on the right side demonstrates how to return 25 records of products stored in the Cloud Space of the E-commerce extension.
+The API examples are provided in JavaScript language. The example query on the right side demonstrates how to return 25 records of products stored in the Cloud Space of the E-commerce extension.
 
 <aside class="notice">
 You must replace <code>your_api_key</code> with your API key.
